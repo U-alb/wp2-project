@@ -44,9 +44,10 @@ so that patients can access them anytime without worrying about losing a paper p
 
 - As a doctor, I want to access a patient's medical history before a consultation,
 so that I can make informed decisions and avoid prescribing conflicting treatments.
-Acceptance Criteria:
 
-    - Doctors can securely access and update patient records.
-    - Patients can view their history but cannot modify medical data.
-    - The system encrypts and securely stores patient data.
-    - Only authorized personnel can access sensitive records.
+### Acceptance Criteria:
+
+  - Doctors can securely access and update patient records.
+  - Patients can view their history but cannot modify medical data.
+  - The system encrypts and securely stores patient data.
+  - Only authorized personnel can access sensitive records.
