@@ -10,6 +10,9 @@
 - **Medical Staff Coordination** – Streamline workflow between doctors, nurses, and administrative staff.
 - **Secure Data Storage** – Implement robust security measures to protect patient information.
 
+## Mock-up in Figma
+https://www.figma.com/design/UrD5wemBHqatC7ClLMaDkh/MedSys-Wireframe?node-id=0-1&p=f&t=fYzflmSuu5PxppJq-0
+
 # User Stories
 
 ## User Story 1: Appointment Scheduling  
