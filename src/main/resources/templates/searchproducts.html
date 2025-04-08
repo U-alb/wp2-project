@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Search Products</title>
+</head>
+<body>
+<h2>Search Products</h2>
+
+<form method="get" th:action="@{/products/search}">
+    Category:
+    <input type="text" name="category" th:value="${param.category}" /><br/>
+
+    Min Price:
+    <input type="number" name="minPrice" step="0.01" th:value="${param.minPrice}" /><br/>
+
+    Max Price:
+    <input type="number" name="maxPrice" step="0.01" th:value="${param.maxPrice}" /><br/>
+
+    <input type="submit" value="Search" />
+</form>
+
+<br/>
+
+<div th:if="${searchPerformed}">
+    <h3>Results:</h3>
+    <div th:if="${#lists.isEmpty(results)}">
+        No products found.
+    </div>
+    <div th:each="product : ${results}">
+        <span th:text="${product.name}">Name</span> -
+        <span th:text="${product.price}">Price</span> -
+        <span th:text="${product.category}">Category</span><br/>
+    </div>
+</div>
+</body>
+</html>
