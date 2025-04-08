@@ -1,5 +1,10 @@
 # MedSys: Informatics System for Medical Cabinet Management
 
+## Trello
+
+https://trello.com/b/TgBtmKRu/wp2
+
+
 ## Overview
 **MedSys** is a comprehensive informatics system designed to optimize the management of a medical cabinet. It provides an efficient solution for handling appointments, schedules, medical prescriptions, and patient records while ensuring secure data management and an intuitive user experience.
 
