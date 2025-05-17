@@ -1,0 +1,15 @@
+<!DOCTYPE html><html xmlns:th="http://www.thymeleaf.org">
+<head><title>Create account</title></head><body>
+<h2>Create account</h2>
+<form th:action="@{/register}" th:object="${userForm}" method="post">
+    <input th:field="*{username}" placeholder="Username" required/><br/>
+    <input th:field="*{email}"    placeholder="Email"    required/><br/>
+    <input th:field="*{password}" type="password" placeholder="Password" required/><br/>
+    <input th:field="*{dateOfBirth}"  type="date"   placeholder="Date of birth" required/><br/>
+    <select th:field="*{role}">
+        <option value="PATIENT">Patient</option>
+        <option value="DOCTOR">Doctor</option>
+    </select><br/>
+    <button type="submit">Sign up</button>
+</form>
+</body></html>
