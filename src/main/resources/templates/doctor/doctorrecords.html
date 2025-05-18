@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Records - Doctor</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 2rem;
+      margin: 0;
+    }
+    .container {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 600px;
+      text-align: center;
+    }
+    .logo {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 20px;
+      background-image: url('/logo.png');
+      background-size: cover;
+      background-position: center;
+      border-radius: 50%;
+    }
+    .card {
+      background-color: #dbeafe;
+      padding: 1rem;
+      border-radius: 6px;
+      margin: 1rem auto;
+      text-align: left;
+    }
+    .button {
+      display: inline-block;
+      background-color: #80FAC0;
+      color: black;
+      text-decoration: none;
+      padding: 0.6rem 1rem;
+      border-radius: 4px;
+      margin: 0.5rem;
+      border: none;
+      cursor: pointer;
+    }
+    .form-group {
+      margin-bottom: 1rem;
+      text-align: left;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    .form-group textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+    .success {
+      color: #059669;
+      margin: 1rem 0;
+    }
+    .error {
+      color: #dc2626;
+      margin: 1rem 0;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="logo"></div>
+  <h2>Medical Records - Dr. <span th:text="${username}"></span></h2>
+  
+  <div th:if="${param.success}" class="success">
+    Record added successfully!
+  </div>
+  <div th:if="${param.error}" class="error" th:text="${param.error}">
+    Error message
+  </div>
+
+  <form th:action="@{/doctor/records/add}" method="post">
+    <div class="form-group">
+      <label for="patientId">Patient:</label>
+      <select id="patientId" name="patientId" required>
+        <option value="">Select a patient</option>
+        <option th:each="p : ${patients}"
+                th:value="${p.id}"
+                th:text="${p.username}">
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" required>
+    </div>
+
+    <div class="form-group">
+      <label for="notes">Notes:</label>
+      <textarea id="notes" name="notes" required></textarea>
+    </div>
+
+    <button type="submit" class="button">Add Record</button>
+  </form>
+
+  <h3>Existing Records</h3>
+  <div th:each="r : ${records}" class="card">
+    <p><strong>Date:</strong> <span th:text="${#temporals.format(r.createdAt, 'dd-MM-yyyy HH:mm')}"></span></p>
+    <p><strong>Patient:</strong> <span th:text="${r.patient.username}"></span></p>
+    <p><strong>Title:</strong> <span th:text="${r.title}"></span></p>
+    <p><strong>Notes:</strong> <span th:text="${r.notes}"></span></p>
+  </div>
+
+  <a class="button" th:href="@{/doctor/dashboard}">Back to Dashboard</a>
+</div>
+</body>
+</html> 

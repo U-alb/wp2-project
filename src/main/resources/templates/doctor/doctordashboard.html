@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Doctor Dashboard</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 600px;
+      text-align: center;
+    }
+    .logo {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 20px;
+      background-image: url('/logo.png');
+      background-size: cover;
+      background-position: center;
+      border-radius: 50%;
+    }
+    .card {
+      background-color: #dbeafe;
+      padding: 1rem;
+      border-radius: 6px;
+      margin: 1rem auto;
+      text-align: left;
+    }
+    .button {
+      display: inline-block;
+      background-color: #80FAC0;
+      color: black;
+      text-decoration: none;
+      padding: 0.6rem 1rem;
+      border-radius: 4px;
+      margin: 0.5rem;
+    }
+    .status-pending {
+      color: #d97706;
+    }
+    .status-accepted {
+      color: #059669;
+    }
+    .status-rejected {
+      color: #dc2626;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="logo"></div>
+  <h2>Welcome back Dr. <span th:text="${username}"></span>!</h2>
+  <p>Here are your upcoming appointments</p>
+  <div th:each="a : ${appointments}" class="card">
+    <p><strong>Date:</strong> <span th:text="${#temporals.format(a.appointmentDate, 'dd-MM-yyyy HH:mm')}"></span></p>
+    <p><strong>Patient:</strong> <span th:text="${a.patient.username}"></span></p>
+    <p><strong>Reason:</strong> <span th:text="${a.scheduleReason}"></span></p>
+    <p><strong>Status:</strong> 
+      <span th:class="${'status-' + #strings.toLowerCase(a.status)}" 
+            th:text="${a.status}">
+      </span>
+    </p>
+  </div>
+  <div>
+    <a class="button" th:href="@{/doctor/records}">View Records</a>
+    <a class="button" th:href="@{/doctor/prescriptions}">View Prescriptions</a>
+  </div>
+</div>
+</body>
+</html> 
