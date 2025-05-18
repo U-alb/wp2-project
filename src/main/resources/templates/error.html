@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 500px;
+        }
+        .error-message {
+            color: #dc2626;
+            margin: 1rem 0;
+        }
+        .button {
+            display: inline-block;
+            margin-top: 1rem;
+            text-decoration: none;
+            background-color: #80FAC0;
+            color: black;
+            padding: 0.6rem 1rem;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Oops! Something went wrong</h1>
+        <p class="error-message" th:text="${error}">Error message will be displayed here</p>
+        <div th:if="${#authorization.expression('hasRole(''ROLE_DOCTOR'')')}">
+            <a class="button" th:href="@{/doctor/dashboard}">Back to Dashboard</a>
+        </div>
+        <div th:if="${#authorization.expression('hasRole(''ROLE_PATIENT'')')}">
+            <a class="button" th:href="@{/patient/dashboard}">Back to Dashboard</a>
+        </div>
+    </div>
+</body>
+</html> 

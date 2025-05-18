@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Prescriptions - Doctor</title>
+  <title>Doctor Dashboard</title>
   <style>
     body {
       font-family: sans-serif;
@@ -37,32 +37,44 @@
       text-align: left;
     }
     .button {
+      display: inline-block;
       background-color: #80FAC0;
       color: black;
-      border: none;
-      padding: 0.6rem;
+      text-decoration: none;
+      padding: 0.6rem 1rem;
       border-radius: 4px;
-      cursor: pointer;
       margin: 0.5rem;
+    }
+    .status-pending {
+      color: #d97706;
+    }
+    .status-accepted {
+      color: #059669;
+    }
+    .status-rejected {
+      color: #dc2626;
     }
   </style>
 </head>
 <body>
 <div class="container">
   <div class="logo"></div>
-  <h2>Hello <span th:text="${username}"></span>!</h2>
-  <p>These are <span th:text="${patientEmail}"></span>'s prescriptions</p>
-  <div th:each="p : ${prescriptions}" class="card">
-    <p><strong>Date:</strong> <span th:text="${p.date}"></span></p>
-    <p><strong>Prescribed by:</strong> <span th:text="${p.doctor}"></span></p>
-    <p><strong>Medication:</strong> <span th:text="${p.medication}"></span></p>
-    <p><strong>Dosage:</strong> <span th:text="${p.dosage}"></span></p>
-    <p><strong>Duration:</strong> <span th:text="${p.duration}"></span></p>
+  <h2>Welcome back Dr. <span th:text="${username}"></span>!</h2>
+  <p>Here are your upcoming appointments</p>
+  <div th:each="a : ${appointments}" class="card">
+    <p><strong>Date:</strong> <span th:text="${#temporals.format(a.appointmentDate, 'dd-MM-yyyy HH:mm')}"></span></p>
+    <p><strong>Patient:</strong> <span th:text="${a.patient.username}"></span></p>
+    <p><strong>Reason:</strong> <span th:text="${a.scheduleReason}"></span></p>
+    <p><strong>Status:</strong> 
+      <span th:class="${'status-' + #strings.toLowerCase(a.status)}" 
+            th:text="${a.status}">
+      </span>
+    </p>
   </div>
   <div>
-    <a class="button" th:href="@{/portal/addprescription}">Add new prescription</a>
-    <a class="button" th:href="@{/portal/removeprescription}">Remove prescription</a>
+    <a class="button" th:href="@{/doctor/records}">View Records</a>
+    <a class="button" th:href="@{/doctor/prescriptions}">View Prescriptions</a>
   </div>
 </div>
 </body>
-</html>
+</html> 

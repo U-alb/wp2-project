@@ -30,24 +30,35 @@
             background-position: center;
             border-radius: 50%;
         }
-        input, select {
+        input, select, textarea {
             width: 100%;
             padding: 0.5rem;
             margin: 10px 0;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
         button {
             background-color: #80FAC0;
-            color: white;
+            color: black;
             border: none;
             padding: 0.6rem 1rem;
             border-radius: 4px;
             cursor: pointer;
             width: 100%;
+            margin-top: 1rem;
         }
         button:hover {
             background-color: #66DFA8;
+        }
+        label {
+            display: block;
+            text-align: left;
+            margin-top: 1rem;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -55,17 +66,30 @@
 <div class="container">
     <div class="logo"></div>
     <h2>Schedule an Appointment</h2>
-    <form th:action="@{/portal/appointment}" th:object="${appointment}" method="post">
-        <input type="date" th:field="*{date}" required />
-        <input type="time" th:field="*{time}" required />
+    <form th:action="@{/appointments/schedule}" method="post">
+        <div>
+            <label for="appointmentDate">Date and Time:</label>
+            <input type="datetime-local" id="appointmentDate" name="appointmentDate" required />
+        </div>
 
-        <select th:field="*{doctorId}" required>
-            <option value="" disabled selected>Select Doctor</option>
-            <option th:each="doc : ${doctors}" th:value="${doc.id}" th:text="${doc.username}"></option>
-        </select>
+        <div>
+            <label for="doctor">Select Doctor:</label>
+            <select id="doctor" name="doctorId" required>
+                <option value="" disabled selected>Select Doctor</option>
+                <option th:each="doc : ${doctors}" 
+                        th:value="${doc.id}" 
+                        th:text="${doc.username + ' - ' + doc.spec}">
+                </option>
+            </select>
+        </div>
 
-        <button type="submit">Confirm Appointment</button>
+        <div>
+            <label for="scheduleReason">Reason for Visit:</label>
+            <textarea id="scheduleReason" name="scheduleReason" required></textarea>
+        </div>
+
+        <button type="submit">Schedule Appointment</button>
     </form>
 </div>
 </body>
-</html>
+</html> 

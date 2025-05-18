@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Prescriptions - Patient</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 600px;
+      text-align: center;
+    }
+    .logo {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 20px;
+      background-image: url('/logo.png');
+      background-size: cover;
+      background-position: center;
+      border-radius: 50%;
+    }
+    .card {
+      background-color: #dbeafe;
+      padding: 1rem;
+      border-radius: 6px;
+      margin: 1rem auto;
+      text-align: left;
+    }
+    .button {
+      display: inline-block;
+      margin-top: 1rem;
+      text-decoration: none;
+      background-color: #80FAC0;
+      color: black;
+      padding: 0.6rem 1rem;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="logo"></div>
+  <h2>These are your prescriptions, <span th:text="${username}"></span>!</h2>
+  <div th:each="p : ${prescriptions}" class="card">
+    <p><strong>Date:</strong> <span th:text="${#temporals.format(p.issueDate, 'dd-MM-yyyy')}"></span></p>
+    <p><strong>Prescribed by:</strong> <span th:text="${p.doctor.username + ' - ' + p.doctor.spec}"></span></p>
+    <p><strong>Medication:</strong> <span th:text="${p.medication}"></span></p>
+    <p><strong>Dosage:</strong> <span th:text="${p.dosage}"></span></p>
+    <p th:if="${p.notes}"><strong>Notes:</strong> <span th:text="${p.notes}"></span></p>
+  </div>
+  <a class="button" th:href="@{/patient/dashboard}">Back to Dashboard</a>
+</div>
+</body>
+</html>
