@@ -40,7 +40,12 @@
     <div class="container">
         <h1>Oops! Something went wrong</h1>
         <p class="error-message" th:text="${error}">Error message will be displayed here</p>
-        <a class="button" th:href="@{/patient/dashboard}">Back to Dashboard</a>
+        <div th:if="${#authorization.expression('hasRole(''ROLE_DOCTOR'')')}">
+            <a class="button" th:href="@{/doctor/dashboard}">Back to Dashboard</a>
+        </div>
+        <div th:if="${#authorization.expression('hasRole(''ROLE_PATIENT'')')}">
+            <a class="button" th:href="@{/patient/dashboard}">Back to Dashboard</a>
+        </div>
     </div>
 </body>
 </html> 
