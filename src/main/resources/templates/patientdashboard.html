@@ -1,3 +1,4 @@
+<!-- dashboard.html -->
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -44,6 +45,14 @@
       border-radius: 4px;
       cursor: pointer;
       margin: 0.5rem;
+      min-width: 150px;
+    }
+    .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
     }
   </style>
 </head>
@@ -57,7 +66,7 @@
     <p th:text="${a.details}"></p>
   </div>
   <a class="button" th:href="@{/portal/appointment}">Schedule a new appointment</a>
-  <div>
+  <div class="button-group">
     <a class="button" th:href="@{/portal/records}">Records</a>
     <a class="button" th:href="@{/portal/prescriptions}">Prescriptions</a>
   </div>
