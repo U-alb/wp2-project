@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Doctor Portal</title>
   <style>
     body {
@@ -10,19 +11,23 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 100vh;
+      min-height: 100vh;
+      margin: 0;
+      padding: 1rem;
+      box-sizing: border-box;
     }
     .container {
       background: white;
-      padding: 2rem;
+      padding: 1.5rem;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
       text-align: center;
-      width: 320px;
+      width: 100%;
+      max-width: 320px;
     }
     .logo {
-      width: 100px;
-      height: 100px;
+      width: 80px;
+      height: 80px;
       margin: 0 auto 20px;
       background-image: url("/logo.png");
       background-size: cover;
@@ -31,24 +36,49 @@
     }
     h2 {
       margin-bottom: 0.5rem;
+      font-size: 1.5rem;
     }
     p {
       margin-bottom: 1.5rem;
+      font-size: 1rem;
     }
     .button-grid {
       display: grid;
-      gap: 10px;
+      gap: 12px;
     }
     a.button {
       display: block;
       background-color: #80FAC0;
       color: black;
       text-decoration: none;
-      padding: 0.6rem;
-      border-radius: 4px;
+      padding: 0.8rem;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      transition: background-color 0.2s;
     }
     a.button:hover {
       background-color: #66DFA8;
+    }
+    @media (max-width: 360px) {
+      .container {
+        padding: 1rem;
+      }
+      .logo {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 15px;
+      }
+      h2 {
+        font-size: 1.3rem;
+      }
+      p {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+      }
+      a.button {
+        padding: 0.7rem;
+        font-size: 0.9rem;
+      }
     }
   </style>
 </head>

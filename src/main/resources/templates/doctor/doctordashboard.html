@@ -1,80 +1,75 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
 <head>
-  <meta charset="UTF-8">
-  <title>Doctor Dashboard</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      background-color: #f4f4f4;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-    .container {
-      background: white;
-      padding: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      width: 600px;
-      text-align: center;
-    }
-    .logo {
-      width: 100px;
-      height: 100px;
-      margin: 0 auto 20px;
-      background-image: url('/logo.png');
-      background-size: cover;
-      background-position: center;
-      border-radius: 50%;
-    }
-    .card {
-      background-color: #dbeafe;
-      padding: 1rem;
-      border-radius: 6px;
-      margin: 1rem auto;
-      text-align: left;
-    }
-    .button {
-      display: inline-block;
-      background-color: #80FAC0;
-      color: black;
-      text-decoration: none;
-      padding: 0.6rem 1rem;
-      border-radius: 4px;
-      margin: 0.5rem;
-    }
-    .status-pending {
-      color: #d97706;
-    }
-    .status-accepted {
-      color: #059669;
-    }
-    .status-rejected {
-      color: #dc2626;
-    }
-  </style>
+    <title>Doctor Dashboard</title>
+    <style>
+        .appointment-card {
+            transition: transform 0.2s;
+        }
+        .appointment-card:hover {
+            transform: translateY(-2px);
+        }
+        .status-pending {
+            color: #d97706;
+        }
+        .status-accepted {
+            color: #059669;
+        }
+        .status-rejected {
+            color: #dc2626;
+        }
+        @media (max-width: 768px) {
+            .action-buttons {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            .action-buttons .btn {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-  <div class="logo"></div>
-  <h2>Welcome back Dr. <span th:text="${username}"></span>!</h2>
-  <p>Here are your upcoming appointments</p>
-  <div th:each="a : ${appointments}" class="card">
-    <p><strong>Date:</strong> <span th:text="${#temporals.format(a.appointmentDate, 'dd-MM-yyyy HH:mm')}"></span></p>
-    <p><strong>Patient:</strong> <span th:text="${a.patient.username}"></span></p>
-    <p><strong>Reason:</strong> <span th:text="${a.scheduleReason}"></span></p>
-    <p><strong>Status:</strong> 
-      <span th:class="${'status-' + #strings.toLowerCase(a.status)}" 
-            th:text="${a.status}">
-      </span>
-    </p>
-  </div>
-  <div>
-    <a class="button" th:href="@{/doctor/records}">View Records</a>
-    <a class="button" th:href="@{/doctor/prescriptions}">View Prescriptions</a>
-  </div>
-</div>
+    <div layout:fragment="content">
+        <div class="text-center mb-4">
+            <div class="logo"></div>
+            <h2 class="mb-3">Welcome back Dr. <span th:text="${username}"></span>!</h2>
+            <p class="text-muted">Here are your upcoming appointments</p>
+        </div>
+
+        <div class="appointments-list">
+            <div th:each="a : ${appointments}" class="card appointment-card mb-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h5 class="card-title" th:text="${a.patient.username}">Patient Name</h5>
+                            <p class="card-text">
+                                <strong>Date:</strong> 
+                                <span th:text="${#temporals.format(a.appointmentDate, 'dd-MM-yyyy HH:mm')}"></span>
+                            </p>
+                            <p class="card-text">
+                                <strong>Reason:</strong> 
+                                <span th:text="${a.scheduleReason}"></span>
+                            </p>
+                            <p class="card-text">
+                                <strong>Status:</strong> 
+                                <span th:class="${'status-' + #strings.toLowerCase(a.status)}" 
+                                      th:text="${a.status}">
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center action-buttons gap-3 mt-4">
+            <a class="btn btn-primary" th:href="@{/doctor/records}">View Records</a>
+            <a class="btn btn-primary" th:href="@{/doctor/prescriptions}">View Prescriptions</a>
+        </div>
+    </div>
 </body>
 </html> 
