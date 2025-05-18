@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Doctor Portal</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .container {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 320px;
+    }
+    .logo {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 20px;
+      background-image: url("/logo.png");
+      background-size: cover;
+      background-position: center;
+      border-radius: 50%;
+    }
+    h2 {
+      margin-bottom: 0.5rem;
+    }
+    p {
+      margin-bottom: 1.5rem;
+    }
+    .button-grid {
+      display: grid;
+      gap: 10px;
+    }
+    a.button {
+      display: block;
+      background-color: #80FAC0;
+      color: black;
+      text-decoration: none;
+      padding: 0.6rem;
+      border-radius: 4px;
+    }
+    a.button:hover {
+      background-color: #66DFA8;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="logo"></div>
+  <h2>Welcome, Doctor!</h2>
+  <p>What would you like to do?</p>
+
+  <div class="button-grid">
+    <a th:href="@{/patients}" class="button">Patients</a>
+    <a th:href="@{/records}" class="button">Records</a>
+    <a th:href="@{/prescriptions}" class="button">Prescriptions</a>
+  </div>
+</div>
+
+</body>
+</html>

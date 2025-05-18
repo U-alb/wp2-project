@@ -1,15 +1,78 @@
-<!DOCTYPE html><html xmlns:th="http://www.thymeleaf.org">
-<head><title>Create account</title></head><body>
-<h2>Create account</h2>
-<form th:action="@{/register}" th:object="${userForm}" method="post">
-    <input th:field="*{username}" placeholder="Username" required/><br/>
-    <input th:field="*{email}"    placeholder="Email"    required/><br/>
-    <input th:field="*{password}" type="password" placeholder="Password" required/><br/>
-    <input th:field="*{dateOfBirth}"  type="date"   placeholder="Date of birth" required/><br/>
-    <select th:field="*{role}">
-        <option value="PATIENT">Patient</option>
-        <option value="DOCTOR">Doctor</option>
-    </select><br/>
-    <button type="submit">Sign up</button>
-</form>
-</body></html>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MedSys - Sign Up</title>
+    <style>
+        body {
+          font-family: sans-serif;
+          background-color: #f4f4f4;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          height: 100vh;
+        }
+        .container {
+          background: white;
+          padding: 2rem;
+          border-radius: 8px;
+          box-shadow: 0 0 10px rgba(0,0,0,0.1);
+          width: 300px;
+          text-align: center;
+        }
+        .logo {
+          width: 100px;
+          height: 100px;
+          margin: 0 auto 20px;
+          background-image: url("/logo.png");
+          background-size: cover;
+          background-position: center;
+          border-radius: 50%;
+        }
+        input, select {
+          width: 100%;
+          padding: 0.5rem;
+          margin: 10px 0;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+        }
+        button {
+          background-color: #80FAC0;
+          color: white;
+          border: none;
+          padding: 0.6rem 1rem;
+          border-radius: 4px;
+          cursor: pointer;
+          width: 100%;
+        }
+        button:hover {
+          background-color: #66DFA8;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="logo"></div>
+    <h2>Create an Account</h2>
+
+    <form th:action="@{/register}" th:object="${userForm}" method="post">
+        <input th:field="*{username}" placeholder="Username" required />
+        <input th:field="*{email}" placeholder="Email" required />
+        <input th:field="*{password}" type="password" placeholder="Password" required />
+        <input th:field="*{dateOfBirth}" type="date" placeholder="Date of Birth" required />
+
+        <select th:field="*{role}" required>
+            <option value="PATIENT">Patient</option>
+            <option value="DOCTOR">Doctor</option>
+        </select>
+
+        <button type="submit">Sign up</button>
+    </form>
+
+    <p>Already have an account? <a th:href="@{/login}">Login here</a></p>
+</div>
+
+</body>
+</html>

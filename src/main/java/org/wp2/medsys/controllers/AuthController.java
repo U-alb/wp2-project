@@ -2,6 +2,7 @@
 package org.wp2.medsys.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -35,9 +36,32 @@ public class AuthController {
     }
 
     @GetMapping("/portal")
-    public String portal() {                    // landing page after login
-        return "portal";
+    public String portalRedirect(Authentication authentication) {
+        String username = authentication.getName(); // always works
+        User user = repo.findByUsername(username).orElse(null);
+
+        if (user == null) {
+            return "redirect:/login?error=usernotfound";
+        }
+
+        return switch (user.getRole()) {
+            case DOCTOR -> "redirect:/portal/doctorportal";
+            case PATIENT -> "redirect:/portal/patientportal";
+            default -> "redirect:/login?error=unknownrole";
+        };
     }
+
+    @GetMapping("/portal/doctorportal")
+    public String doctorPortal() {
+        return "portal/doctorportal";  // make sure this file exists: templates/portal/doctorportal.html
+    }
+
+    @GetMapping("/portal/patientportal")
+    public String patientPortal() {
+        return "portal/patientportal";  // make sure this file exists: templates/portal/patientportal.html
+    }
+
+
 
     /* ---------- form POST ---------- */
 
