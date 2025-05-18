@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Patient Dashboard</title>
+  <title>Prescriptions - Patient</title>
   <style>
     body {
       font-family: sans-serif;
@@ -37,33 +37,28 @@
       text-align: left;
     }
     .button {
+      display: inline-block;
+      margin-top: 1rem;
+      text-decoration: none;
       background-color: #80FAC0;
       color: black;
-      border: none;
-      padding: 0.6rem;
+      padding: 0.6rem 1rem;
       border-radius: 4px;
-      cursor: pointer;
-      margin: 0.5rem;
     }
   </style>
 </head>
 <body>
 <div class="container">
   <div class="logo"></div>
-  <h2>Welcome back <span th:text="${username}"></span>!</h2>
-  <p>This is your dashboard</p>
-  <h3>Upcoming appointments:</h3>
-  <div th:each="a : ${appointments}" class="card">
-    <p><strong>Date:</strong> <span th:text="${#temporals.format(a.appointmentDate, 'dd-MM-yyyy HH:mm')}"></span></p>
-    <p><strong>Doctor:</strong> <span th:text="${a.doctor.username + ' - ' + a.doctor.spec}"></span></p>
-    <p><strong>Reason:</strong> <span th:text="${a.scheduleReason}"></span></p>
-    <p><strong>Status:</strong> <span th:text="${a.status}"></span></p>
+  <h2>These are your prescriptions, <span th:text="${username}"></span>!</h2>
+  <div th:each="p : ${prescriptions}" class="card">
+    <p><strong>Date:</strong> <span th:text="${#temporals.format(p.issueDate, 'dd-MM-yyyy')}"></span></p>
+    <p><strong>Prescribed by:</strong> <span th:text="${p.doctor.username + ' - ' + p.doctor.spec}"></span></p>
+    <p><strong>Medication:</strong> <span th:text="${p.medication}"></span></p>
+    <p><strong>Dosage:</strong> <span th:text="${p.dosage}"></span></p>
+    <p th:if="${p.notes}"><strong>Notes:</strong> <span th:text="${p.notes}"></span></p>
   </div>
-  <a class="button" th:href="@{/appointments}">Schedule a new appointment</a>
-  <div>
-    <a class="button" th:href="@{/patient/records}">Records</a>
-    <a class="button" th:href="@{/patient/prescriptions}">Prescriptions</a>
-  </div>
+  <a class="button" th:href="@{/patient/dashboard}">Back to Dashboard</a>
 </div>
 </body>
 </html>

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Patient Dashboard</title>
+  <title>Records - Patient</title>
   <style>
     body {
       font-family: sans-serif;
@@ -37,33 +37,27 @@
       text-align: left;
     }
     .button {
+      display: inline-block;
+      margin-top: 1rem;
+      text-decoration: none;
       background-color: #80FAC0;
       color: black;
-      border: none;
-      padding: 0.6rem;
+      padding: 0.6rem 1rem;
       border-radius: 4px;
-      cursor: pointer;
-      margin: 0.5rem;
     }
   </style>
 </head>
 <body>
 <div class="container">
   <div class="logo"></div>
-  <h2>Welcome back <span th:text="${username}"></span>!</h2>
-  <p>This is your dashboard</p>
-  <h3>Upcoming appointments:</h3>
-  <div th:each="a : ${appointments}" class="card">
-    <p><strong>Date:</strong> <span th:text="${#temporals.format(a.appointmentDate, 'dd-MM-yyyy HH:mm')}"></span></p>
-    <p><strong>Doctor:</strong> <span th:text="${a.doctor.username + ' - ' + a.doctor.spec}"></span></p>
-    <p><strong>Reason:</strong> <span th:text="${a.scheduleReason}"></span></p>
-    <p><strong>Status:</strong> <span th:text="${a.status}"></span></p>
+  <h2>These are your records, <span th:text="${username}"></span>!</h2>
+  <div th:each="r : ${records}" class="card">
+    <p><strong>Date:</strong> <span th:text="${#temporals.format(r.createdAt, 'dd-MM-yyyy HH:mm')}"></span></p>
+    <p><strong>Title:</strong> <span th:text="${r.title}"></span></p>
+    <p><strong>Doctor:</strong> <span th:text="${r.doctor.username + ' - ' + r.doctor.spec}"></span></p>
+    <p><strong>Notes:</strong> <span th:text="${r.notes}"></span></p>
   </div>
-  <a class="button" th:href="@{/appointments}">Schedule a new appointment</a>
-  <div>
-    <a class="button" th:href="@{/patient/records}">Records</a>
-    <a class="button" th:href="@{/patient/prescriptions}">Prescriptions</a>
-  </div>
+  <a class="button" th:href="@{/patient/dashboard}">Back to Dashboard</a>
 </div>
 </body>
 </html>
